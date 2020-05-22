@@ -13,6 +13,9 @@ body {
 
 header {
     background: rgb(2,0,27);
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 .header-content {
@@ -27,7 +30,8 @@ header {
     margin: 0 auto;
 }
 
-header p {
+h1,
+main {
     color: cornsilk;
 }
 
@@ -36,7 +40,6 @@ header p {
     display: inline-block;
     padding: 3px 10px;
     border-radius: 4px;
-    cursor: pointer;
 }
 
 #search-btn:hover {
@@ -45,4 +48,8 @@ header p {
 
 #search-btn:active {
     background-color: rgb(180,180,180,.4);
+}
+
+.movie-wrapper {
+    padding: 100px 0;
 }
