@@ -22,8 +22,32 @@
             </div>
         </header>
         <main>
-            <div class="movie-wrapper container"></div>
+            <div class="movie-wrapper container">
+                <div class="movie-search"></div>
+                <div class="movie-cards"></div>
+            </div>
         </main>
+
+        <script id="search-template" type="text/x-handlebars-template">
+            <h2>Titles related to: "{{query}}"</h2>
+        </script>
+
+        <script id="card-template" type="text/x-handlebars-template">
+            <ul class="card">
+                <li>Title: {{title}}</li>
+                <li>Original Title: {{og_title}}</li>
+                <li class="vote">Vote Average: </li>
+                <li class="language"></li>
+            </ul>
+        </script>
+
+        <script id="language-template" type="text/x-handlebars-template">
+            <img class="flag" src="img/{{og_language}}-flag.jpg" alt="">
+        </script>
+
+        <script id="star-template" type="text/x-handlebars-template">
+            <i class="fa-star"></i>
+        </script>
 
         <script src="main.js" charset="utf-8"></script>
     </body>
