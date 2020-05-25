@@ -60,15 +60,15 @@ main {
     background-color: rgb(180,180,180,.4);
 }
 
-.movie-wrapper {
+.media-wrapper {
     padding: 100px 0;
 }
 
-.movie-search {
+.media-search {
     display: block;
 }
 
-.movie-cards {
+.media-cards {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;

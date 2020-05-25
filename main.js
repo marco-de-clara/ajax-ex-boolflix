@@ -12,22 +12,20 @@ $(document).ready(function() {
     });
 
     // organize and print data from api
-    function compileResults(object, string) {
-        // add query on top of the page
-        queryString(string);
+    function compileResults(object) {
         // get html from card template
         var template_card_html = $('#card-template').html();
         // ready the function
         var template_card_function = Handlebars.compile(template_card_html);
 
         for(var i = 0; i < object.length; i++) {
-            // select a movie
-            var movie_result = object[i];
+            // select a media
+            var media_result = object[i];
             // get info from api
-            var title = movie_result.title;
-            var og_title = movie_result.original_title;
-            var og_language = movie_result.original_language;
-            var vote = movie_result.vote_average;
+            var title = media_result.title;
+            var og_title = media_result.original_title;
+            var og_language = media_result.original_language;
+            var vote = media_result.vote_average;
             // organize info in an object
             var context = {
                 'title' : title,
@@ -37,11 +35,11 @@ $(document).ready(function() {
             };
             // set the object inside the template
             var template_final = template_card_function(context);
-            // append selected movie's info to movie card wrapper
-            $(template_final).appendTo('.movie-cards');
-            // add movie language flag to card
+            // append selected media's info to media card wrapper
+            $(template_final).appendTo('.media-cards');
+            // add media language flag to card
             addFlag(context);
-            // add movie rating to card
+            // add media rating to card
             addVote(context);
             // empty searchbar
             $('#searchbar').val('');
@@ -59,8 +57,8 @@ $(document).ready(function() {
         var template_search_function = Handlebars.compile(template_search_html);
         // set the object inside the template
         var template_search_final = template_search_function(search);
-        // append selected movie's info to movie wrapper
-        $(template_search_final).appendTo('.movie-search');
+        // append selected media's info to media wrapper
+        $(template_search_final).appendTo('.media-search');
     }
 
     // add language flag to card
@@ -69,11 +67,11 @@ $(document).ready(function() {
         var template_flag_html = $('#language-template').html();
         // ready the function
         var template_flag_function = Handlebars.compile(template_flag_html);
-        // if the movie's language is de, en, es, fr, or it
+        // if the media's language is de, en, es, fr, or it
         if(object.og_language == 'de' || object.og_language == 'en' || object.og_language == 'es' || object.og_language == 'fr' || object.og_language == 'it') {
             // set the object inside the template
             var template_flag_final = template_flag_function(object);
-            // append selected movie's info to language
+            // append selected media's info to language
             $('.language').last().append(template_flag_final);
         } else {
             // capitalize language string
@@ -83,7 +81,7 @@ $(document).ready(function() {
         }
     }
 
-    // add movie rating to card
+    // add media rating to card
     function addVote(object) {
         // get html from star template
         var template_star_html = $('#star-template').html();
@@ -100,7 +98,7 @@ $(document).ready(function() {
             //print 5 whole stars
             for (var i = 0; i < stars; i++) {
                 var template_star_final = template_star_function();
-                // append selected movie's info to movie wrapper
+                // append selected media's info to media wrapper
                 $('.vote').last().append(template_star_final);
                 // FA class for whole stars
                 $('.fa-star').last().addClass('fas');
@@ -109,7 +107,7 @@ $(document).ready(function() {
             //print whole stars
             for (var i = 0; i < stars; i++) {
                 var template_star_final = template_star_function();
-                // append selected movie's info to movie wrapper
+                // append selected media's info to media wrapper
                 $('.vote').last().append(template_star_final);
                 // FA class for whole stars
                 $('.fa-star').last().addClass('fas');
@@ -117,7 +115,7 @@ $(document).ready(function() {
             //print empty stars
             for (var i = 0; i < starsRemainder; i++) {
                 var template_star_final = template_star_function();
-                // append selected movie's info to movie wrapper
+                // append selected media's info to media wrapper
                 $('.vote').last().append(template_star_final);
                 // FA class for empty stars
                 $('.fa-star').last().addClass('far');
@@ -125,36 +123,87 @@ $(document).ready(function() {
         }
     }
 
-    function mainSearch() {
-        // get text in searchbar
-        var search_text = $('#searchbar').val();
-        // ajax call to get list of movies
+    // main movie search
+    function movieSearch(string) {
+        // ajax call to get list of medias
         $.ajax ({
             'url' : 'https://api.themoviedb.org/3/search/movie',
             'method' : 'GET',
             'data' : {
                 'api_key' : 'd4767df425ce462ce9f76db8238d5e56',
-                'query' : search_text
+                'query' : string
             },
             'success' : function(data) {
                 // get results from api
-                var movie_results = data.results;
-                // if previous search results are displayed
-                if($('.movie-cards').children().length > 0) {
-                    // erase search history
-                    $('.movie-search').empty();
-                    $('.movie-cards').empty();
-                    // compile new search
-                    compileResults(movie_results, search_text);
-                // no previous history displayed
-                } else {
-                    // compile new search
-                    compileResults(movie_results, search_text);
-                }
+                var media_results = data.results;
+                // compile new search
+                compileResults(media_results);
             },
             'error' : function() {
                 console.log('Si è verificato un errore');
             }
         });
+    }
+
+    // main tv shows search
+    function tvSearch(string) {
+        // ajax call to get list of medias
+        $.ajax ({
+            'url' : 'https://api.themoviedb.org/3/search/tv',
+            'method' : 'GET',
+            'data' : {
+                'api_key' : 'd4767df425ce462ce9f76db8238d5e56',
+                'query' : string
+            },
+            'success' : function(data) {
+                // get results from api
+                var media_results = data.results;
+                // normalize object
+                for(var i = 0; i < media_results.length; i++) {
+                    // select a media
+                    var media_result = media_results[i];
+                    // get info from api
+                    var title = media_result.name;
+                    var original_title = media_result.original_name;
+                    var original_language = media_result.original_language;
+                    var vote_average = media_result.vote_average;
+                    // organize info in an object
+                    var context = {
+                        'title' : title,
+                        'original_title' : original_title,
+                        'original_language' : original_language,
+                        'vote_average' : vote_average
+                    };
+                }
+                // compile new search
+                compileResults(context);
+            },
+            'error' : function() {
+                console.log('Si è verificato un errore');
+            }
+        });
+    }
+
+    function mainSearch() {
+        // get text in searchbar
+        var search_text = $('#searchbar').val();
+        // if previous search results are displayed
+        if($('.media-cards').children().length > 0) {
+            // erase search history
+            $('.media-search').empty();
+            $('.media-cards').empty();
+            
+            // add query on top of the page
+            queryString(search_text);
+            // search
+            movieSearch(search_text);
+            tvSearch(search_text);
+        } else {
+            // add query on top of the page
+            queryString(search_text);
+            // search
+            movieSearch(search_text);
+            tvSearch(search_text);
+        }
     }
 });
