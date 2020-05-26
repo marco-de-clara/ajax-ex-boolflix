@@ -11,6 +11,14 @@ $(document).ready(function() {
         }
     });
 
+    // $('.card').mouseenter(function() {
+    //     $(this).children('.poster').removeClass('show');
+    // });
+
+    // $('.card').mouseleave(function() {
+    //     $(this).children('.poster').addClass('show');
+    // });
+
     // organize and print data from api
     function compileResults(object) {
         // get html from card template
@@ -26,12 +34,16 @@ $(document).ready(function() {
             var og_title = media_result.original_title;
             var og_language = media_result.original_language;
             var vote = media_result.vote_average;
+            var poster = media_result.poster_path;
+            var overview = media_result.overview;
             // organize info in an object
             var context = {
                 'title' : title,
                 'og_title' : og_title,
                 'og_language' : og_language,
-                'vote' : vote
+                'vote' : vote,
+                'poster' : poster,
+                'overview' : overview
             };
             // set the object inside the template
             var template_final = template_card_function(context);
@@ -67,8 +79,9 @@ $(document).ready(function() {
         var template_flag_html = $('#language-template').html();
         // ready the function
         var template_flag_function = Handlebars.compile(template_flag_html);
+        var flags = ['de', 'en', 'es', 'fr', 'it'];
         // if the media's language is de, en, es, fr, or it
-        if(object.og_language == 'de' || object.og_language == 'en' || object.og_language == 'es' || object.og_language == 'fr' || object.og_language == 'it') {
+        if(flags.includes(object.og_language)) {
             // set the object inside the template
             var template_flag_final = template_flag_function(object);
             // append selected media's info to language
@@ -167,12 +180,17 @@ $(document).ready(function() {
                     var original_title = media_result.original_name;
                     var original_language = media_result.original_language;
                     var vote_average = media_result.vote_average;
+                    var poster_path = media_result.poster_path;
+                    var overwiew = media_result.overview;
+
                     // organize info in an object
                     var context = {
                         'title' : title,
                         'original_title' : original_title,
                         'original_language' : original_language,
-                        'vote_average' : vote_average
+                        'vote_average' : vote_average,
+                        'poster_path' : poster_path,
+                        'overview' : overview
                     };
                 }
                 // compile new search
