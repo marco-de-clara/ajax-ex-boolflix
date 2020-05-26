@@ -33,16 +33,16 @@
         </script>
 
         <script id="card-template" type="text/x-handlebars-template">
-            <ul class="card">
-                <li class="poster show">
-                    <img src="https://image.tmdb.org/t/p/w342/{{poster}}" alt="">
-                </li>
-                <li><b>Title: </b>{{title}}</li>
-                <li><b>Original Title: </b>{{og_title}}</li>
-                <li class="vote"><b>Vote Average: </b></li>
-                <li class="overview"><b>Overview: </b>{{overview}}</li>
-                <li class="language"></li>
-            </ul>
+            <div class="card-wrapper">
+                <img class="poster" src="https://image.tmdb.org/t/p/w342/{{poster}}" alt="">
+                <div class="card">
+                    <div><b>Title: </b>{{title}}</div>
+                    <div><b>Original Title: </b>{{og_title}}</div>
+                    <div class="vote"><b>Vote Average: </b></div>
+                    <div class="overview"><b>Overview: </b>{{overview}}</div>
+                    <div class="language"></div>
+                </div>
+            </div>
         </script>
 
         <script id="language-template" type="text/x-handlebars-template">
@@ -56,3 +56,14 @@
         <script src="main.js" charset="utf-8"></script>
     </body>
 </html>
+
+<!-- <ul class="card">
+    <li class="poster show">
+        <img src="https://image.tmdb.org/t/p/w342/{{poster}}" alt="">
+    </li>
+    <li><b>Title: </b>{{title}}</li>
+    <li><b>Original Title: </b>{{og_title}}</li>
+    <li class="vote"><b>Vote Average: </b></li>
+    <li class="overview"><b>Overview: </b>{{overview}}</li>
+    <li class="language"></li>
+</ul> -->

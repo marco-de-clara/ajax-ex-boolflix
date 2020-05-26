@@ -10,14 +10,14 @@ $(document).ready(function() {
             mainSearch();
         }
     });
-
-    // $('.card').mouseenter(function() {
-    //     $(this).children('.poster').removeClass('show');
-    // });
-
-    // $('.card').mouseleave(function() {
-    //     $(this).children('.poster').addClass('show');
-    // });
+    // mouse over
+    $('.media-wrapper').on('mouseenter', '.poster', function(event) {
+        $(event.target).toggleClass('hide');
+    });
+    //mouse leave
+    $('.media-cards').on('mouseleave', '.card', function(event) {
+        $(event.target).siblings().toggleClass('hide');
+    });
 
     // organize and print data from api
     function compileResults(object) {
@@ -45,6 +45,7 @@ $(document).ready(function() {
                 'poster' : poster,
                 'overview' : overview
             };
+
             // set the object inside the template
             var template_final = template_card_function(context);
             // append selected media's info to media card wrapper
@@ -56,7 +57,7 @@ $(document).ready(function() {
             // empty searchbar
             $('#searchbar').val('');
         }
-    }
+    };
     
     // add query on top of the page
     function queryString(string) {
@@ -71,7 +72,7 @@ $(document).ready(function() {
         var template_search_final = template_search_function(search);
         // append selected media's info to media wrapper
         $(template_search_final).appendTo('.media-search');
-    }
+    };
 
     // add language flag to card
     function addFlag(object) {
@@ -92,7 +93,7 @@ $(document).ready(function() {
             // append string to language
             $('.language').last().append('Original Language: ' + languageCapitalized);
         }
-    }
+    };
 
     // add media rating to card
     function addVote(object) {
@@ -134,7 +135,7 @@ $(document).ready(function() {
                 $('.fa-star').last().addClass('far');
             }
         }
-    }
+    };
 
     // main movie search
     function movieSearch(string) {
@@ -156,7 +157,7 @@ $(document).ready(function() {
                 console.log('Si è verificato un errore');
             }
         });
-    }
+    };
 
     // main tv shows search
     function tvSearch(string) {
@@ -181,7 +182,7 @@ $(document).ready(function() {
                     var original_language = media_result.original_language;
                     var vote_average = media_result.vote_average;
                     var poster_path = media_result.poster_path;
-                    var overwiew = media_result.overview;
+                    var overview = media_result.overview;
 
                     // organize info in an object
                     var context = {
@@ -200,7 +201,7 @@ $(document).ready(function() {
                 console.log('Si è verificato un errore');
             }
         });
-    }
+    };
 
     function mainSearch() {
         // get text in searchbar
