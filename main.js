@@ -41,6 +41,23 @@ $(document).ready(function() {
             var vote = media_result.vote_average;
             var poster = media_result.poster_path;
             var overview = media_result.overview;
+            var hide = "";
+
+            // if the poster isn't available
+            if(poster == null) {
+                // set default poster
+                poster = "img/default.png";
+            } else {
+                // set the poster
+                poster = "https://image.tmdb.org/t/p/w342/" + poster;
+            }
+
+            // if there isn't any overview 
+            if(overview == "") {
+                // hide element
+                hide = "hide"; 
+            }
+
             // organize info in an object
             var context = {
                 'title' : title,
@@ -48,7 +65,8 @@ $(document).ready(function() {
                 'og_language' : og_language,
                 'vote' : vote,
                 'poster' : poster,
-                'overview' : overview
+                'overview' : overview,
+                'hide' : hide
             };
 
             // set the object inside the template
@@ -142,9 +160,9 @@ $(document).ready(function() {
         }
     };
 
-    // main movie search
-    function movieSearch(string) {
-        // ajax call to get list of medias
+    // main media search
+    function mediaSearch(string) {
+        // ajax call to get list of movies
         $.ajax ({
             'url' : 'https://api.themoviedb.org/3/search/movie',
             'method' : 'GET',
@@ -162,11 +180,8 @@ $(document).ready(function() {
                 console.log('Si è verificato un errore');
             }
         });
-    };
 
-    // main tv shows search
-    function tvSearch(string) {
-        // ajax call to get list of medias
+        // ajax call to get list of tv shows
         $.ajax ({
             'url' : 'https://api.themoviedb.org/3/search/tv',
             'method' : 'GET',
@@ -210,24 +225,24 @@ $(document).ready(function() {
 
     function mainSearch() {
         // get text in searchbar
-        var search_text = $('#searchbar').val();
-        // if previous search results are displayed
-        if($('.media-cards').children().length > 0) {
-            // erase search history
-            $('.media-search').empty();
-            $('.media-cards').empty();
-            
-            // add query on top of the page
-            queryString(search_text);
-            // search
-            movieSearch(search_text);
-            tvSearch(search_text);
-        } else {
-            // add query on top of the page
-            queryString(search_text);
-            // search
-            movieSearch(search_text);
-            tvSearch(search_text);
+        var search_text = $('#searchbar').val().trim();
+        // search text must be at least two characters long
+        if(search_text.length >= 2) {
+            // if previous search results are displayed
+            if($('.media-cards').children().length > 0) {
+                // erase search history
+                $('.media-search').empty();
+                $('.media-cards').empty();
+                // add query on top of the page
+                queryString(search_text);
+                // search
+                mediaSearch(search_text);
+            } else {
+                // add query on top of the page
+                queryString(search_text);
+                // search
+                mediaSearch(search_text);
+            }
         }
     }
 });

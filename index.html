@@ -34,12 +34,12 @@
 
         <script id="card-template" type="text/x-handlebars-template">
             <div class="card-wrapper">
-                <img class="poster" src="https://image.tmdb.org/t/p/w342/{{poster}}" alt="">
+                <img class="poster" src="{{poster}}" alt="">
                 <div class="card">
                     <div><b>Title: </b>{{title}}</div>
                     <div><b>Original Title: </b>{{og_title}}</div>
                     <div class="vote"><b>Vote Average: </b></div>
-                    <div class="overview"><b>Overview: </b>{{overview}}</div>
+                    <div class="overview {{hide}}"><b>Overview: </b>{{overview}}</div>
                     <div class="language"></div>
                 </div>
             </div>

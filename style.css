@@ -114,13 +114,15 @@ main {
     left: 0;
     opacity: 1;
     transition: .5s;
+    height: 513px;
+    width: 342px;
 }
 
 .poster:hover {
     opacity: 0;
     transform: scale(1);
 }
-.poster.hide {
+
+.hide {
     display: none;
 }
-
