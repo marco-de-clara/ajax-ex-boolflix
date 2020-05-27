@@ -8,15 +8,20 @@ $(document).ready(function() {
     $('#searchbar').keypress(function(event) {
         if(event.which == 13) {
             mainSearch();
-        }
+        };
     });
+
     // mouse over
-    $('.media-wrapper').on('mouseenter', '.poster', function(event) {
-        $(event.target).toggleClass('hide');
+    $('main').on('mouseenter', '.poster', function(event) {
+        $(event.target).delay(500).queue(function(next) {
+            $(event.target).addClass('hide');
+            next();
+        });
     });
+
     //mouse leave
-    $('.media-cards').on('mouseleave', '.card', function(event) {
-        $(event.target).siblings().toggleClass('hide');
+    $('main').on('mouseleave', '.card', function(event) {
+        $(event.target).siblings().removeClass('hide');
     });
 
     // organize and print data from api
