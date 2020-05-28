@@ -231,5 +231,5 @@ $(document).ready(function() {
                 mediaSearch(search_text);
             }
         }
-    }
+    };
 });
