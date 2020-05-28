@@ -11,19 +11,6 @@ $(document).ready(function() {
         };
     });
 
-    // mouse over
-    $('main').on('mouseenter', '.poster', function(event) {
-        $(event.target).delay(500).queue(function(next) {
-            $(event.target).addClass('hide');
-            next();
-        });
-    });
-
-    //mouse leave
-    $('main').on('mouseleave', '.card', function(event) {
-        $(event.target).siblings().removeClass('hide');
-    });
-
     // organize and print data from api
     function compileResults(object) {
         // get html from card template

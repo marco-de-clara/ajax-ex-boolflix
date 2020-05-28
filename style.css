@@ -78,17 +78,6 @@ main {
     justify-content: center;
 }
 
-.card {
-    background: #141414;
-    border: 2px solid black;
-    font-size: 15px;
-    width: 342px;
-    height: 513px;
-    padding: 15px;
-    line-height: 30px;
-    overflow-y: auto;
-}
-
 .card-wrapper {
     margin: 15px;
     transition: .5s;
@@ -100,27 +89,43 @@ main {
     z-index: 5;
 }
 
+.poster {
+    height: 513px;
+    width: 342px;
+    transition: .5s;
+    opacity: 1;
+    position: absolute;
+}
+
+.card {
+    background: #141414;
+    border: 2px solid black;
+    font-size: 15px;
+    width: 342px;
+    height: 513px;
+    padding: 15px;
+    line-height: 30px;
+    overflow-y: auto;
+}
+
+.card, .card-wrapper:hover > .poster {
+    visibility: hidden;
+}
+
+.card-wrapper:hover > .poster {
+    opacity: 0;
+}
+
+.card-wrapper:hover > .card {
+    visibility: visible;
+}
+
 .flag {
     width: 55px;
 }
 
 .fa-star {
     color: #ffbd00;
-}
-
-.poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 1;
-    transition: .5s;
-    height: 513px;
-    width: 342px;
-}
-
-.poster:hover {
-    opacity: 0;
-    transform: scale(1);
 }
 
 .hide {
